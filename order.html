@@ -3,67 +3,337 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Form</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Order Form - Academic Helpers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #374151;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s;
+    }
+    body.dark-mode {
+      background-color: #1f2937;
+      color: #d1d5db;
+    }
+    main {
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      flex-grow: 1;
+    }
+    body.dark-mode main {
+      background: #374151;
+    }
+    h2 {
+      font-size: 1.5rem;
+      color: #3b82f6;
+      text-align: center;
+    }
+    form {
+      margin-top: 1rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      color: inherit;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    body.dark-mode input {
+      background: #4b5563;
+      border-color: #6b7280;
+      color: #d1d5db;
+    }
+    input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+    }
+    .button {
+      display: block;
+      width: 100%;
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .button:hover {
+      background: #2563eb;
+    }
+    .reset-button {
+      background: #d1d5db;
+      color: #374151;
+    }
+    body.dark-mode .reset-button {
+      background: #6b7280;
+      color: #d1d5db;
+    }
+    .reset-button:hover {
+      background: #b0b7c3;
+    }
+    body.dark-mode .reset-button:hover {
+      background: #4b5563;
+    }
+    .cancel-button {
+      background: #d1d5db;
+      color: #374151;
+    }
+    body.dark-mode .cancel-button {
+      background: #6b7280;
+      color: #d1d5db;
+    }
+    .cancel-button:hover {
+      background: #b0b7c3;
+    }
+    body.dark-mode .cancel-button:hover {
+      background: #4b5563;
+    }
+    #loading {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #3b82f6;
+      border-top: 4px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    #summaryModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 90%;
+    }
+    body.dark-mode .modal-content {
+      background: #374151;
+    }
+    .modal-content h3 {
+      font-size: 1.2rem;
+      color: #3b82f6;
+    }
+    .modal-content p {
+      color: inherit;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+    }
+    .modal-buttons {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+    .history {
+      margin-top: 1.5rem;
+    }
+    .history h3 {
+      font-size: 1.2rem;
+      color: #3b82f6;
+    }
+    .history ul {
+      list-style: none;
+      padding: 0;
+    }
+    .history li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #d1d5db;
+    }
+    body.dark-mode .history li {
+      border-bottom: 1px solid #6b7280;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @media (max-width: 768px) {
+      main { margin: 1rem; padding: 0.75rem; }
+      h2 { font-size: 1.25rem; }
+      input, .button { font-size: 0.9rem; }
+    }
+  </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXX-Y');
+  </script>
 </head>
-<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+<body>
+  <!-- Dark Mode Toggle -->
+  <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+  <!-- Loading Spinner -->
+  <div id="loading">
+    <div class="spinner"></div>
+  </div>
+
   <!-- Order Form Section -->
-  <main class="max-w-lg mx-auto mt-8 p-4 md:p-6 bg-white rounded-lg shadow-lg flex-grow">
-    <h2 class="text-xl md:text-2xl font-bold text-center text-blue-600">Place Your Order</h2>
-    <form id="orderForm" class="mt-4 space-y-4">
-      <div>
-        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-        <input type="text" id="name" name="name" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base">
+  <main>
+    <h2>Place Your Order with Academic Helpers</h2>
+    <form id="orderForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
       </div>
-      <div>
-        <label for="class" class="block text-sm font-medium text-gray-700">Class</label>
-        <input type="text" id="class" name="class" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base">
+      <div class="form-group">
+        <label for="class">Class</label>
+        <input type="text" id="class" name="class" required>
       </div>
-      <div>
-        <label for="subject" class="block text-sm font-medium text-gray-700">Subject/Project</label>
-        <input type="text" id="subject" name="subject" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base">
+      <div class="form-group">
+        <label for="subject">Subject/Project</label>
+        <input type="text" id="subject" name="subject" required>
       </div>
-      <div>
-        <label for="pages" class="block text-sm font-medium text-gray-700">Pages</label>
-        <input type="number" id="pages" name="pages" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base">
+      <div class="form-group">
+        <label for="pages">Pages</label>
+        <input type="number" id="pages" name="pages" required>
       </div>
-      <div>
-        <label for="number" class="block text-sm font-medium text-gray-700">Contact Number</label>
-        <input type="tel" id="number" name="number" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base">
+      <div class="form-group">
+        <label for="number">Contact Number</label>
+        <input type="tel" id="number" name="number" required>
       </div>
-      <div class="text-center">
-        <button type="submit" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300 text-sm md:text-base">Confirm Order</button>
+      <div style="display: flex; gap: 1rem;">
+        <button type="button" onclick="showSummary()" class="button">Review Order</button>
+        <button type="reset" class="button reset-button">Reset</button>
       </div>
     </form>
+
+    <!-- Order Summary Modal -->
+    <div id="summaryModal">
+      <div class="modal-content">
+        <h3>Order Summary</h3>
+        <p id="summaryContent"></p>
+        <div class="modal-buttons">
+          <button onclick="closeSummary()" class="button cancel-button">Cancel</button>
+          <button onclick="submitOrder()" class="button">Confirm Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order History -->
+    <div class="history">
+      <h3>Order History</h3>
+      <ul id="orderHistory"></ul>
+    </div>
   </main>
 
   <script>
-    document.getElementById('orderForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      // Collect form data
-      const formData = new FormData(e.target);
-      const data = {
-        name: formData.get('name'),
-        class: formData.get('class'),
-        subject: formData.get('subject'),
-        pages: formData.get('pages'),
-        number: formData.get('number')
-      };
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+      gtag('event', 'toggle_dark_mode', { event_category: 'UI', event_label: 'Dark Mode Toggled' });
+    }
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
 
-      // Construct WhatsApp message
-      const message = `New Order:\nName: ${data.name}\nClass: ${data.class}\nSubject/Project: ${data.subject}\nPages: ${data.pages}\nContact Number: ${data.number}`;
-      
-      // Send to WhatsApp (using WhatsApp API link)
-      const whatsappNumber = '919407384878';
+    function showSummary() {
+      const form = document.getElementById('orderForm');
+      const pages = form.pages.value;
+      const number = form.number.value;
+      if (pages <= 0) {
+        alert('Pages must be a positive number.');
+        return;
+      }
+      if (!/^\d{10}$/.test(number)) {
+        alert('Please enter a valid 10-digit phone number.');
+        return;
+      }
+      const data = {
+        name: form.name.value,
+        class: form.class.value,
+        subject: form.subject.value,
+        pages: pages,
+        number: number
+      };
+      document.getElementById('summaryContent').innerText = 
+        `Name: ${data.name}\nClass: ${data.class}\nSubject/Project: ${data.subject}\nPages: ${data.pages}\nContact Number: ${data.number}`;
+      document.getElementById('summaryModal').style.display = 'flex';
+      gtag('event', 'review_order', { event_category: 'Order', event_label: 'Review Order Clicked' });
+    }
+
+    function closeSummary() {
+      document.getElementById('summaryModal').style.display = 'none';
+    }
+
+    function submitOrder() {
+      const form = document.getElementById('orderForm');
+      document.getElementById('loading').style.display = 'flex';
+      const data = {
+        name: form.name.value,
+        class: form.class.value,
+        subject: form.subject.value,
+        pages: form.pages.value,
+        number: form.number.value
+      };
+      const message = `New Order from Academic Helpers:\nName: ${data.name}\nClass: ${data.class}\nSubject/Project: ${data.subject}\nPages: ${data.pages}\nContact Number: ${data.number}`;
+      const whatsappNumber = '9407384878';
       const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
       
-      // Open WhatsApp link
-      window.open(whatsappUrl, '_blank');
+      // Save to local storage
+      let orders = JSON.parse(localStorage.getItem('orders')) || [];
+      orders.push(data);
+      localStorage.setItem('orders', JSON.stringify(orders));
+      displayOrderHistory();
 
-      // Redirect to confirmation page
+      window.open(whatsappUrl, '_blank');
+      document.getElementById('loading').style.display = 'none';
+      gtag('event', 'submit_order', { event_category: 'Order', event_label: 'Order Submitted' });
       window.location.href = 'confirmation.html';
-    });
+    }
+
+    function displayOrderHistory() {
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      const historyList = document.getElementById('orderHistory');
+      historyList.innerHTML = '';
+      orders.forEach(order => {
+        const li = document.createElement('li');
+        li.innerText = `Name: ${order.name}, Subject: ${order.subject}, Pages: ${order.pages}`;
+        historyList.appendChild(li);
+      });
+    }
+
+    // Load order history on page load
+    window.onload = displayOrderHistory;
   </script>
 </body>
 </html>
