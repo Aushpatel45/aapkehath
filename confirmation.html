@@ -3,22 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Confirmation</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Order Confirmation - Academic Helpers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #374151;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+      flex-grow: 1;
+    }
+    h2 {
+      font-size: 1.75rem;
+      color: #16a34a;
+      animation: bounce 1s infinite;
+    }
+    p {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+    .button {
+      display: inline-block;
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .button:hover {
+      background: #2563eb;
+    }
+    footer {
+      background: linear-gradient(to right, #3b82f6, #9333ea);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @media (max-width: 768px) {
+      main { margin: 1rem; padding: 0.75rem; }
+      h2 { font-size: 1.5rem; }
+      p { font-size: 1rem; }
+      .button { font-size: 0.9rem; }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+<body>
   <!-- Confirmation Section -->
-  <main class="max-w-4xl mx-auto mt-8 p-4 md:p-6 bg-white rounded-lg shadow-lg text-center flex-grow">
-    <h2 class="text-2xl md:text-3xl font-bold text-green-600 animate-bounce">Order Confirmed!</h2>
-    <p class="mt-4 text-gray-700 text-base md:text-lg">
-      Your order has been successfully placed. We will contact you soon for further details. Thank you for choosing our platform!
+  <main>
+    <h2>Order Confirmed with Academic Helpers!</h2>
+    <p>
+      Your order has been successfully placed with Academic Helpers. We will contact you soon for further details. Thank you for choosing us!
     </p>
-    <a href="index.html" class="inline-block mt-6 bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300 text-sm md:text-base">Back to Home</a>
+    <a href="index.html" class="button" style="margin-top: 1.5rem;">Back to Home</a>
   </main>
 
   <!-- Decorative Footer -->
-  <footer class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 mt-6 text-center">
-    <p class="text-sm md:text-base">© 2025 Order Submission Platform. All rights reserved.</p>
+  <footer>
+    <p>© 2025 Academic Helpers. All rights reserved.</p>
   </footer>
 </body>
 </html>
