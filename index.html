@@ -3,33 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Submission</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Order Submission - Academic Helpers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #374151;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: linear-gradient(to right, #3b82f6, #9333ea);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      animation: pulse 2s infinite;
+    }
+    main {
+      max-width: 800px;
+      margin: 1.5rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      flex-grow: 1;
+    }
+    .button {
+      display: inline-block;
+      background: #3b82f6;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+    .button:hover {
+      background: #2563eb;
+    }
+    p {
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    footer {
+      background: linear-gradient(to right, #3b82f6, #9333ea);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    @media (max-width: 768px) {
+      header h1 { font-size: 2rem; }
+      main { margin: 1rem; padding: 0.75rem; }
+      .button { font-size: 1rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+<body>
   <!-- Welcome Section -->
-  <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-8 text-center">
-    <h1 class="text-4xl md:text-5xl font-bold animate-pulse">Welcome</h1>
+  <header>
+    <h1>Welcome to Academic Helpers</h1>
   </header>
 
   <!-- Main Content -->
-  <main class="max-w-4xl mx-auto mt-6 p-4 md:p-6 bg-white rounded-lg shadow-lg flex-grow">
+  <main>
     <!-- Submit Order Button -->
-    <div class="text-center">
-      <a href="order.html" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300 text-base md:text-lg">Submit Order</a>
+    <div style="text-align: center;">
+      <a href="order.html" class="button">Submit Order</a>
     </div>
 
     <!-- About Paragraph -->
-    <section class="mt-6">
-      <p class="text-gray-700 text-base md:text-lg text-center">
-        Welcome to our platform, designed to make ordering academic projects or assignments effortless. Submit your requirements with ease, and our team will ensure your needs are met with top-notch quality. Enjoy a seamless, mobile-friendly experience!
+    <section style="margin-top: 1.5rem;">
+      <p>
+        Welcome to Academic Helpers, your trusted platform for ordering academic projects and assignments. Our team is dedicated to providing top-quality support, ensuring a seamless and mobile-friendly experience for all your academic needs!
       </p>
     </section>
   </main>
 
   <!-- Decorative Footer -->
-  <footer class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 mt-6 text-center">
-    <p class="text-sm md:text-base">© 2025 Order Submission Platform. All rights reserved.</p>
+  <footer>
+    <p>© 2025 Academic Helpers. All rights reserved.</p>
   </footer>
 </body>
 </html>
